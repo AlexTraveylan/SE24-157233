@@ -12,6 +12,10 @@ class Singleton(metaclass=SingletonMeta):
     def __init__(self, value: int = 0) -> None:
         self._value = value
 
+    @classmethod
+    def reset(cls):
+        SingletonMeta._instances = {}
+
     def get_value(self) -> int:
         return self._value
 
