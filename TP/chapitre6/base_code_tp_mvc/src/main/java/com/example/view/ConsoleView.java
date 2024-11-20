@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.example.controller.MovieController;
 import com.example.model.Movie;
+
+import java.util.List;
 import java.util.Scanner;
 
 /* ICI LE CODE EST A MODIFIER */
@@ -52,15 +54,34 @@ public class ConsoleView {
     }
 
     private void addMovie() {
-
+        System.out.println("Entrez le titre du film : ");
+        String title = scanner.nextLine();
+        try {
+            controller.addMovie(title);
+            System.out.println("Film ajouté avec succès !");
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'ajout du film : " + e.getMessage());
+        }
     }
 
     private void likeMovie() {
-
+        System.out.println("Entrez l'ID du film à liker : ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        try {
+            controller.likeMovie(id);
+            System.out.println("Film liké avec succès !");
+        } catch (Exception e) {
+            System.out.println("Erreur lors du like du film : " + e.getMessage());
+        }
     }
 
     private void displayMovies() {
-
+        List<Movie> movies = controller.getAllMoviesSortedByLikes();
+        System.out.println("Liste des films triés par nombre de likes :");
+        for (Movie movie : movies) {
+            System.out.println(movie.getId() + ". " + movie.getTitle() + " - " + movie.getLikes() + " likes");
+        }
     }
 }
 
